@@ -5,11 +5,11 @@ import json
 import glob
 import numpy as np
 
-def read_tsp_data(file_name):
+def read_tsp_data(base_name):
     """Read one tsp file
 
     Args:
-        file_name [str]: [the full_file name of the file] 
+        base_name [str]: [the base name of the file, a280 for example] 
         
     Returns:
         N [int]: [the number of nodes]
@@ -18,7 +18,7 @@ def read_tsp_data(file_name):
     """
     #base info
     base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.pardir, 'data'))
-    base_name = file_name.split(os.sep)[-1][:-4]
+    file_name = os.path.join(base_path, base_name + '.xml')
     best_name = os.path.join(base_path, 'optimal.json')
     pattern = re.compile(r'\d+')
     N = int(pattern.findall(base_name)[0])
@@ -40,26 +40,20 @@ def read_tsp_data(file_name):
     json_data = json.load(f)
     best_result = json_data[base_name]
     f.close()
-    
     return N, graph, best_result
 
-def get_data_names():
+def get_base_names():
     """Get all the names of the data
 
     Returns:
-        file_names [list of str]: [the file names of the problems]
+        base_names [list of str]: [the base names of the problems, a280 for example]
     """
     base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.pardir, 'data'))
     file_names = glob.glob(os.path.join(base_path, '*.xml'))
-    return file_names
-
-file_names = get_data_names()
-for file_name in file_names:
-    N, graph, best_result = read_tsp_data(file_name)
-    print(file_name.split(os.sep)[-1][:-4])
-    print(N)
-    print(best_result)
-    print(graph)
-    print("-" * 100)
+    base_names = []
+    for file_name in file_names:
+        base_name = file_name.split(os.sep)[-1][:-4]
+        base_names.append(base_name) 
+    return base_names
 
     
