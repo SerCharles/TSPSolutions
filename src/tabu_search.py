@@ -3,30 +3,27 @@ from math import *
 import random
 import numpy as np 
 import data 
+import time
 import matplotlib.pyplot as plt
 
 class TabuSearch(object):
     """The tabu search algorithm
         Args:
             base_name [str]: [the base name of the problem, a280 for example]
-        Super parameters:
-            N [int]: [the dimension of the data]
-            graph [numpy double array], [N * N]: [the graph distances]
-            ground_truth [double]: [the ground truth best solution of the problem]
             n_iters [int]: [the max iteration time]
             n_candidates [int]: [the number of candidates]
             forbidden_length [int]: [the length of forbidden list]
     """
     
-    def __init__(self, base_name):
+    def __init__(self, base_name='burma14', n_iters=500, n_candidates=20, forbidden_length=5):
         #load data
         self.N, self.graph, self.ground_truth = data.read_tsp_data(base_name)
         
         
         #super parameters
-        self.n_iters = 1000
-        self.n_candidates = 100
-        self.forbidden_length = 5
+        self.n_iters = n_iters
+        self.n_candidates = n_candidates
+        self.forbidden_length = forbidden_length
         
         #init basic
         self.current_solution = np.arange(self.N)
@@ -47,6 +44,7 @@ class TabuSearch(object):
     def solve(self):
         """The main algorithm of tabu search
         """
+        start = time.time()
         for iter_ in range(1, self.n_iters + 1):
             #get the random candidates and sort them by cost
             candidates = []
@@ -58,15 +56,8 @@ class TabuSearch(object):
                 qth = self.current_solution[q]
                 smaller = min(pth, qth)
                 bigger = max(pth, qth)
-                new_travel_order = self.shuffle_travel_order(self.current_solution, self.current_best, p, q)
+                new_travel_order, smaller, bigger = self.shuffle_travel_order(self.current_solution, p, q)
                 new_distance = self.get_total_distance(new_travel_order)
-                assert 0 <= smaller
-                assert smaller < bigger 
-                assert bigger < self.N 
-                assert 0 <= p 
-                assert p < q 
-                assert q < self.N 
-                
                 new_candidate = {'travel_order': new_travel_order, 'distance': new_distance, 'smaller': smaller, 'bigger': bigger}
                 candidates.append(new_candidate)
             candidates.sort(key=lambda x: x['distance'])
@@ -100,6 +91,9 @@ class TabuSearch(object):
             print('iter {}/{}:'.format(iter_, self.n_iters))
             print('current best result: {:.4f}'.format(self.current_best))
             print('ground truth result: {:.4f}'.format(self.ground_truth))
+            print('rate: {:.4f}'.format(self.current_best / self.ground_truth))
+        end = time.time()
+        print('Total time cost: {:.2f}s'.format(end - start))
 
             
     def get_total_distance(self, travel_order):
@@ -119,18 +113,18 @@ class TabuSearch(object):
             total_distance += distance 
         return total_distance
     
-    def shuffle_travel_order(self, travel_order, distance, p, q):
-        """Shuffle the travel order to get an adjacent travel order and its distance
+    def shuffle_travel_order(self, travel_order, p, q):
+        """Shuffle the travel order to get an adjacent travel order
 
         Args:
             travel_order [numpy int array], [N]: [the original travelling order]
-            distance [double]: [the original total distance]
             p [int]: [the id of the travel order to be shuffled, 0 <= p < q < N]
             q [int]: [the id of the travel order to be shuffled, 0 <= p < q < N]
         
         Returns:
             new_travel_order [numpy int array], [N]: [the new travelling order]
-            new_distance [double]: [the new total distance]
+            smaller [int]: [the smaller id to be shuffled]
+            bigger [int]: [the bigger id to be shuffled]
         """
         #get new travel order
         new_travel_order = travel_order.copy()
@@ -138,7 +132,9 @@ class TabuSearch(object):
         qth = travel_order[q]
         new_travel_order[q] = pth 
         new_travel_order[p] = qth
-        return new_travel_order
+        smaller = min(pth, qth)
+        bigger = max(pth, qth)
+        return new_travel_order, smaller, bigger
     
     def sample_shuffles(self):
         """Sample the random shuffles
@@ -197,10 +193,10 @@ class TabuSearch(object):
         plt.legend(['Current Best Results', 'Ground Truth Results'])    
         plt.show()
         
-        
-a = TabuSearch('att48')
-a.solve()
-a.plot_result()
+if __name__ == '__main__':
+    a = TabuSearch(base_name='burma14', n_iters=500, n_candidates=20, forbidden_length=5)
+    a.solve()
+    a.plot_result()
 
         
         
