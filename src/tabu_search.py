@@ -198,7 +198,7 @@ class TabuSearch(object):
         plt.title("The TSP results of tabu search")
         plt.legend(['Current Best Results', 'Ground Truth Results'])   
         plt.savefig(save_path) 
-        plt.show()
+        #plt.show()
         plt.close()
         
     def save_result(self):
@@ -228,7 +228,7 @@ class TabuSearch(object):
         self.plot_result(png_path)
         
 if __name__ == '__main__':
-    a = TabuSearch(base_name='burma14', n_iters=500, n_candidates=20, forbidden_length=5)
+    a = TabuSearch()
     a.solve()
     a.save_result()
 

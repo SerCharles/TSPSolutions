@@ -245,7 +245,6 @@ class GeneticAlgorithm(object):
         plt.title("The TSP results of tabu search")
         plt.legend(['Current Best Results', 'Ground Truth Results'])   
         plt.savefig(save_path) 
-        plt.show()
         plt.close()
         
     def save_result(self):
