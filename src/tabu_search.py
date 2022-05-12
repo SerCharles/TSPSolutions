@@ -4,6 +4,7 @@ import random
 import numpy as np 
 import data 
 import time
+import matplotlib
 import matplotlib.pyplot as plt
 
 class TabuSearch(object):
@@ -189,6 +190,7 @@ class TabuSearch(object):
         Args:
             save_path [str]: [the full saving path]
         """
+        matplotlib.use('agg')
         x = range(0, self.n_iters + 1)
         plt.plot(x, self.result_list)
         plt.plot(x, self.ground_truth_list)
