@@ -66,7 +66,7 @@ class GeneticAlgorithm(object):
             self.select()
             
             self.result_list.append(self.current_best)
-            print('iter {}/{}:'.format(iter_, self.n_iters))
+            print('iter {}/{}:'.format(iter_ + 1, self.n_iters))
             print('current best result: {:.4f}'.format(self.current_best))
             print('ground truth result: {:.4f}'.format(self.ground_truth))
             print('rate: {:.4f}'.format(self.current_best / self.ground_truth))
