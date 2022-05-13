@@ -18,7 +18,7 @@ class GeneticAlgorithm(object):
         mutation_probability [double]: [the probability of mutation]
         fitness_mode [str]: [the mode of fitness function, order/distance]
     """
-    def __init__(self, base_name='burma14', n_iters=2000, group_number=50, cross_probability=1, mutation_probability=0.05, fitness_mode='distance'):
+    def __init__(self, base_name='burma14', n_iters=200, group_number=50, cross_probability=1, mutation_probability=0.05, fitness_mode='distance'):
         #load data
         self.N, self.graph, self.ground_truth = data.read_tsp_data(base_name)
         
@@ -254,7 +254,7 @@ class GeneticAlgorithm(object):
         """
         base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.pardir, 'results'))
         filename = 'genetic_' + self.base_name + '_group' + str(self.group_number) + \
-            '_cross0' + str(int(self.cross_probability * 10)) + '_mute0' + str(int(self.mutation_probability * 10)) + '_fitness' + self.fitness_mode
+            '_cross0' + str(int(self.cross_probability * 10)) + '_mute0' + str(int(self.mutation_probability * 100)) + '_fitness' + self.fitness_mode
         txt_path = os.path.join(base_path, filename + '.txt')
         png_path = os.path.join(base_path, filename + '.png')
         f = open(txt_path, 'w')
@@ -282,7 +282,6 @@ class GeneticAlgorithm(object):
         
         
 if __name__ == '__main__':  
-    a = GeneticAlgorithm()      
-    #a = GeneticAlgorithm(base_name='att48', n_iters=10000, group_number=1000, cross_probability=0.7, mutation_probability=0.05, fitness_mode='order')
+    a = GeneticAlgorithm()     
     a.solve()
     a.save_result()
