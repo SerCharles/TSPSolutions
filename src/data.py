@@ -41,19 +41,3 @@ def read_tsp_data(base_name):
     best_result = json_data[base_name]
     f.close()
     return N, graph, best_result
-
-def get_base_names():
-    """Get all the names of the data
-
-    Returns:
-        base_names [list of str]: [the base names of the problems, a280 for example]
-    """
-    base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.pardir, 'data'))
-    file_names = glob.glob(os.path.join(base_path, '*.xml'))
-    base_names = []
-    for file_name in file_names:
-        base_name = file_name.split(os.sep)[-1][:-4]
-        base_names.append(base_name) 
-    return base_names
-
-    

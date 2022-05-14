@@ -1,0 +1,13 @@
+Algorithm: Genetic Algorithm
+data: burma14
+N: 14
+group number: 50
+cross probability: 1
+mutation probability: 0.05
+fitness mode: distance
+ground truth: 3323.00
+my result: 3323.00
+rate: 1.00
+time cost: 0.30s
+best route: 
+6 11 5 4 3 2 13 1 0 9 8 10 7 12 

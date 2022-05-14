@@ -1,0 +1,11 @@
+Algorithm: Tabu Search
+data: att48
+N: 48
+candidates: 100
+forbidden length: 10
+ground truth: 10628.00
+my result: 10972.00
+rate: 1.03
+time cost: 272.20s
+best route: 
+1 25 3 34 44 23 9 41 4 47 38 31 20 46 19 35 27 5 36 18 16 42 26 29 6 17 43 30 37 7 0 8 39 14 32 45 11 10 12 24 13 22 2 21 15 40 33 28 

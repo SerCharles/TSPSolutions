@@ -1,0 +1,13 @@
+Algorithm: Simulated Annealing
+data: burma14
+N: 14
+iteration times of each T: 50
+decay rate: 0.99
+start T: 100
+end T: 0.1
+ground truth: 3323.00
+my result: 3323.00
+rate: 1.00
+time cost: 4.37s
+best route: 
+5 4 3 2 13 1 0 9 8 10 7 12 6 11 

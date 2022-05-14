@@ -17,7 +17,7 @@ class SimulatedAnnealing(object):
         start_T [double]: [the starting temperature]
         end_T [double]: [the ending temperature]
     """
-    def __init__(self, base_name='burma14', n_iters=50, decay_rate=0.99, start_T=100, end_T=1e-2):
+    def __init__(self, base_name='burma14', n_iters=50, decay_rate=0.99, start_T=100, end_T=0.1):
         #load data
         self.N, self.graph, self.ground_truth = data.read_tsp_data(base_name)
         
@@ -118,26 +118,30 @@ class SimulatedAnnealing(object):
         x = range(0, len(self.ground_truth_list))
         plt.plot(x, self.result_list)
         plt.plot(x, self.ground_truth_list)
-
         plt.xlabel('Iterations')
         plt.ylabel('TSP min distances')
         plt.title("The TSP results of simulated annealing")
         plt.legend(['Current Best Results', 'Ground Truth Results'])   
         plt.savefig(save_path) 
-        #plt.show()
         plt.close()
         
     def save_result(self):
         """Save the results
         """
         base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.pardir, 'results'))
-        filename = 'sa_' + self.base_name + '_decay' + str(int(self.decay_rate * 100)) + '_start' + str(int(self.start_T * 1e2)) + '_end' + str(int(self.end_T * 1e2))
-        txt_path = os.path.join(base_path, filename + '.txt')
-        png_path = os.path.join(base_path, filename + '.png')
+        if not os.path.exists(base_path):
+            os.mkdir(base_path)
+        save_path = os.path.join(base_path, 'simulated_annealing')
+        if not os.path.exists(save_path):
+            os.mkdir(save_path)        
+        txt_path = os.path.join(save_path, self.base_name + '.txt')
+        png_path = os.path.join(save_path, self.base_name + '.png')
+
         f = open(txt_path, 'w')
         f.write('Algorithm: Simulated Annealing\n')
         f.write('data: ' + self.base_name + '\n')
         f.write('N: '+ str(self.N) + '\n')
+        f.write('iteration times of each T: '+ str(self.n_iters) + '\n')
         f.write('decay rate: ' + str(self.decay_rate) + '\n')
         f.write('start T: ' + str(self.start_T) + '\n')
         f.write('end T: ' + str(self.end_T) + '\n')

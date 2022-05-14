@@ -241,7 +241,6 @@ class GeneticAlgorithm(object):
         x = range(0, self.n_iters + 1)
         plt.plot(x, self.result_list)
         plt.plot(x, self.ground_truth_list)
-
         plt.xlabel('Iterations')
         plt.ylabel('TSP min distances')
         plt.title("The TSP results of genetic algorithm")
@@ -253,10 +252,21 @@ class GeneticAlgorithm(object):
         """Save the results
         """
         base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.pardir, 'results'))
-        filename = 'genetic_' + self.base_name + '_group' + str(self.group_number) + \
+        if not os.path.exists(base_path):
+            os.mkdir(base_path)
+        save_path = os.path.join(base_path, 'genetic_algorithm')
+        if not os.path.exists(save_path):
+            os.mkdir(save_path)
+            
+        '''
+        txt_path = os.path.join(save_path, self.base_name + '.txt')
+        png_path = os.path.join(save_path, self.base_name + '.png')
+        '''
+        filename = self.base_name + '_group' + str(self.group_number) + \
             '_cross0' + str(int(self.cross_probability * 10)) + '_mute0' + str(int(self.mutation_probability * 100)) + '_fitness' + self.fitness_mode
-        txt_path = os.path.join(base_path, filename + '.txt')
-        png_path = os.path.join(base_path, filename + '.png')
+        txt_path = os.path.join(save_path, filename + '.txt')
+        png_path = os.path.join(save_path, filename + '.png')
+        
         f = open(txt_path, 'w')
         f.write('Algorithm: Genetic Algorithm\n')
         f.write('data: ' + self.base_name + '\n')

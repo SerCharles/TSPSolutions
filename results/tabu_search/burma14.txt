@@ -1,0 +1,11 @@
+Algorithm: Tabu Search
+data: burma14
+N: 14
+candidates: 20
+forbidden length: 5
+ground truth: 3323.00
+my result: 3323.00
+rate: 1.00
+time cost: 0.21s
+best route: 
+10 8 9 0 1 13 2 3 4 5 11 6 12 7 

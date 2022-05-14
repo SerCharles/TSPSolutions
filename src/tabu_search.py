@@ -193,22 +193,25 @@ class TabuSearch(object):
         x = range(0, self.n_iters + 1)
         plt.plot(x, self.result_list)
         plt.plot(x, self.ground_truth_list)
-
         plt.xlabel('Iterations')
         plt.ylabel('TSP min distances')
         plt.title("The TSP results of tabu search")
         plt.legend(['Current Best Results', 'Ground Truth Results'])   
         plt.savefig(save_path) 
-        #plt.show()
         plt.close()
         
     def save_result(self):
         """Save the results
         """
         base_path = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.pardir, 'results'))
-        filename = 'tabu_' + self.base_name + '_candidate' + str(self.n_candidates) + '_forbidden' + str(self.forbidden_length)
-        txt_path = os.path.join(base_path, filename + '.txt')
-        png_path = os.path.join(base_path, filename + '.png')
+        if not os.path.exists(base_path):
+            os.mkdir(base_path)
+        save_path = os.path.join(base_path, 'tabu_search')
+        if not os.path.exists(save_path):
+            os.mkdir(save_path)  
+        txt_path = os.path.join(save_path, self.base_name + '.txt')
+        png_path = os.path.join(save_path, self.base_name + '.png')
+
         f = open(txt_path, 'w')
         f.write('Algorithm: Tabu Search\n')
         f.write('data: ' + self.base_name + '\n')

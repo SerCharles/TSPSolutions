@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-data
-*.xml
-results
 
 # C extensions
 *.so

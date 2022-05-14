@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<travellingSalesmanProblemInstance>
+
+  <name>example5</name>
+  <description>A easy example</description>
+
+  <graph>
+    <vertex>
+      <edge cost="10">1</edge>
+      <edge cost="15">2</edge>
+      <edge cost="6">3</edge>
+      <edge cost="2">4</edge>
+    </vertex>
+    <vertex>
+      <edge cost="10">0</edge>
+      <edge cost="8">2</edge>
+      <edge cost="13">3</edge>
+      <edge cost="9">4</edge>
+    </vertex>
+    <vertex>
+      <edge cost="15">0</edge>
+      <edge cost="8">1</edge>
+      <edge cost="20">3</edge>
+      <edge cost="15">4</edge>
+    </vertex>
+    <vertex>
+      <edge cost="6">0</edge>
+      <edge cost="13">1</edge>
+      <edge cost="20">2</edge>
+      <edge cost="5">4</edge>
+    </vertex>
+    <vertex>
+      <edge cost="2">0</edge>
+      <edge cost="9">1</edge>
+      <edge cost="15">2</edge>
+      <edge cost="5">3</edge>
+    </vertex>
+  </graph>
+</travellingSalesmanProblemInstance>
